@@ -1,120 +1,110 @@
 <template>
   <div class="auth-wrapper auth-v2">
     <b-row class="auth-inner m-0">
-
       <!-- Brand logo-->
       <b-link class="brand-logo" to="/">
         <!--<vuexy-logo />-->
-        <img src="../assets/images/logo/logo.png" alt="" style="width: 200px">
+        <img src="../assets/images/logo/logo.png" alt="" style="width: 200px" />
       </b-link>
       <!-- /Brand logo-->
 
       <!-- Left Text-->
-      <b-col
-        lg="8"
-        class="d-none d-lg-flex align-items-center p-5"
-      >
+      <b-col lg="8" class="d-none d-lg-flex align-items-center p-5">
         <div class="w-100 d-lg-flex align-items-center justify-content-center px-5">
-          <img
-            src="../assets/images/pages/login-v2-dark.svg"
-            alt="Login V2"
-          />
+          <img src="../assets/images/pages/login-v2-dark.svg" alt="Login V2" />
         </div>
       </b-col>
       <!-- /Left Text-->
 
       <!-- Login-->
-      <b-col
-        lg="4"
-        class="d-flex align-items-center auth-bg px-2 p-lg-5"
-      >
-        <b-col
-          sm="8"
-          md="6"
-          lg="12"
-          class="px-xl-2 mx-auto"
-        >
-          <b-card-title
-            title-tag="h2"
-            class="font-weight-bold mb-1"
-          >
-            Welcome to Vastoz
-          </b-card-title>
-          <!--<b-card-text class="mb-2">
-            Please sign-in to your account and start the adventure
-          </b-card-text>-->
-
+      <b-col lg="4" class="d-flex align-items-center auth-bg px-2 p-lg-5">
+        <b-col sm="8" md="6" lg="12" class="px-xl-2 mx-auto">
+          <b-card-title title-tag="h2" class="font-weight-bold mb-1"> Welcome to Vastoz </b-card-title>
           <!-- form -->
-          <b-overlay variant="white"  spinner-variant="primary" opacity=".75" rounded="sm">
-            <b-form
-              class="auth-login-form mt-2"
-              @submit.prevent
-            >
+          <b-overlay variant="white" spinner-variant="primary" opacity=".75" rounded="sm">
+            <b-form class="auth-login-form mt-2" v-on:submit.prevent="submitForm">
               <!-- email -->
-              <b-form-group
-                label="Account"
-                label-for="login-email"
-              >
-                  <b-form-input
-                    id="login-email"
-                    name="account"
-                    placeholder="Enter" autocomplete="off"
-                  />
+              <b-form-group label="Account" label-for="login-email">
+                <b-form-input id="login-email" v-model="username" name="account" placeholder="Enter" autocomplete="off" />
               </b-form-group>
 
               <!-- forgot password -->
               <b-form-group>
                 <div class="d-flex justify-content-between">
                   <label for="login-password">Password</label>
-                  
                 </div>
-                
-                  <b-input-group
-                    class="input-group-merge"
-                  >
-                    <b-form-input
-                      id="login-password"
-                      class="form-control-merge"
-                      name="login-password"
-                      placeholder="············" autocomplete="off"
-                    />
-                    <b-input-group-append is-text>
-                      
-                    </b-input-group-append>
-                  </b-input-group>
+
+                <b-input-group class="input-group-merge">
+                  <b-form-input
+                    id="login-password"
+                    class="form-control-merge"
+                    v-model="password"
+                    name="login-password"
+                    placeholder="············"
+                    autocomplete="off"
+                  />
+                  <b-input-group-append is-text> </b-input-group-append>
+                </b-input-group>
               </b-form-group>
 
-              <b-button
-                type="submit"
-                variant="primary"
-                block
-              >Login</b-button>
+              <b-button type="submit" variant="primary" >Login</b-button>
             </b-form>
           </b-overlay>
 
-
           <b-card-text class="text-center mt-2">
-            <b-link >
+            <b-link>
               <b-button type="submit" variant="outline-primary" block>Sign up</b-button>
             </b-link>
           </b-card-text>
         </b-col>
       </b-col>
-    <!-- /Login-->
+      <!-- /Login-->
     </b-row>
   </div>
 </template>
 
-<script lang="ts">
+<script>
+import axios from 'axios'
 export default {
-  name: 'Home'
+  name: 'Home',
+  data() {
+    return {
+      status: '',
+      password: '',
+      username: '',
+      // validation rulesimport store from '@/store/index'
+      //required,
+      //email,
+      showLoading:false,
+    }
+  },
+  methods: {
+    submitForm() {
+ 
+axios.post('https://dev.vastoz.com/cms/user/login', {
+  userName:"GreenG",
+  password:"Vast0z1!"
+  }, {
+    headers: {
+      'Content-Type':'application/json;charsetset=UTF-8'
+    }
+}).then(res => {
+            if (res.data[1]=='Login successful'){
+              localStorage.setItem('x-auth-token',res.data[2]);
+              localStorage.setItem('userEmail',res.data[3]);
+              localStorage.setItem('nickName',res.data[6]);
+              localStorage.setItem('userAvatar',res.data[5]);
+              localStorage.setItem('roleId',res.data[7]);
+              this.$router.push({path: '/about'});
+            }
+            this.showLoading = false;
+          }).catch(error => {
+            this.showLoading = false;
+          })
+
+    },
+  },
 }
+
 </script>
 
-<script setup lang="ts">
-//import { ValidationProvider, ValidationObserver } from 'vee-validate'
-
-// https://github.com/vuejs/eslint-plugin-vue/issues/1577
-// eslint-disable-next-line import/first
-//import HelloWorld from '@/components/HelloWorld.vue'
-</script>
