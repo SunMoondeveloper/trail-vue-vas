@@ -12,3 +12,4 @@ import '@/scss/app.scss'
 const route = useRoute()
 const layout = computed(() => `layout-${route.meta.layout || 'default'}`)
 </script>
+
