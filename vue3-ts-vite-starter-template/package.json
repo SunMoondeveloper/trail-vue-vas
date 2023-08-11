@@ -5,7 +5,7 @@
   "license": "MIT",
   "repository": "https://github.com/kouts/vue3-ts-vite-starter-template",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint \"**/*.{vue,ts,js}\"",
