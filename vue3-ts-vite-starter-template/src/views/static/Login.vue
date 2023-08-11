@@ -17,15 +17,15 @@
       <!-- /Left Text-->
 
       <!-- Login-->
-      <b-col lg="4" class="d-flex align-items-center auth-bg px-2 p-lg-5">
+      <b-col lg="4" class="d-flex align-items-center auth-bg px-2 p-lg-5 ">
         <b-col sm="8" md="6" lg="12" class="px-xl-2 mx-auto">
           <b-card-title title-tag="h2" class="font-weight-bold mb-1"> Welcome to Vastoz </b-card-title>
           <!-- form -->
           <b-overlay variant="white" spinner-variant="primary" opacity=".75" rounded="sm">
-            <b-form class="auth-login-form mt-2" v-on:submit.prevent="submitForm">
+            <b-form class="auth-login-form mt-2" @submit="submitForm" >
               <!-- email -->
               <b-form-group label="Account" label-for="login-email">
-                <b-form-input id="login-email" v-model="username" name="account" placeholder="Enter Username" autocomplete="off" />
+                <b-form-input id="login-email" v-model="username" name="username" placeholder="Enter Username" autocomplete="off"  required/>
               </b-form-group>
 
               <!-- forgot password -->
@@ -43,6 +43,8 @@
                     :type="passwordFieldType"
                     placeholder="············"
                     autocomplete="off"
+                    required
+
                   />
                   <b-input-group-append is-text> 
                     
@@ -68,6 +70,7 @@
             </b-link>
           </b-card-text>
         </b-col>
+        
       </b-col>
       <!-- /Login-->
     </b-row>
@@ -78,6 +81,9 @@
 import {
   BRow, BCol, BLink, BFormGroup, BFormInput, BInputGroupAppend, BInputGroup, BFormCheckbox, BCardText, BCardTitle, BImg, BForm, BButton,
 } from 'bootstrap-vue-3'
+
+import { useField } from 'vee-validate';
+const { errorMessage, meta, value } = useField('username');
 
 import axios from 'axios'
 import { togglePasswordVisibility } from '@core/mixins/ui/forms'
@@ -105,20 +111,24 @@ export default {
     submitForm() {
  
 axios.post('https://dev.vastoz.com/cms/user/login', {
-  userName:"GreenG",
-  password:"Vast0z1!"
+  //userName:"GreenG",
+  //password:"Vast0z1!"
+  userName:this.username, 
+  password:this.password,
   }, {
     headers: {
       'Content-Type':'application/json;charsetset=UTF-8'
     }
 }).then(res => {
-            if (res.data[1]=='Login successful'){
+          if (res.data[1]=='Login successful'){
               localStorage.setItem('x-auth-token',res.data[2]);
               localStorage.setItem('userEmail',res.data[3]);
               localStorage.setItem('nickName',res.data[6]);
               localStorage.setItem('userAvatar',res.data[5]);
               localStorage.setItem('roleId',res.data[7]);
               this.$router.push({path: '/home'});
+            }else {
+              this.$router.push({path: '/login'});
             }
             this.showLoading = false;
           }).catch(error => {
