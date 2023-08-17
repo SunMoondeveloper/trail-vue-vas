@@ -5,14 +5,23 @@ import { resolve } from 'path'
 
 
 export default defineConfig({
+  define: {
+      rootPath: JSON.stringify("https://dev.vastoz.com/cms"),
+      websocketPath: JSON.stringify("wss://dev.vastoz.com/cms/"),
+      //rootPath: JSON.stringify("https://localhost:2005/cms"),
+      //websocketPath: JSON.stringify("ws://localhost:2005/cms/"),
+      //rootPath: "https://dev.vastoz.com/cms",
+       //websocketPath: "wss://dev.vastoz.com/cms/",
+      //appName: "my-custom-name"
+},
   plugins: [
     vue(),
     createHtmlPlugin({
       minify: true,
       inject: {
         data: {
-          title: 'ProjectName',
-          description: 'A single page application created using Vue.js 3'
+          title: 'Vastoz',
+          description: 'Vastoz application created using Vue.js 3'
         }
       }
     })
@@ -25,6 +34,7 @@ export default defineConfig({
       '@core': resolve(__dirname, 'src/@core'),
       '@validations': resolve(__dirname, 'src/@core/utils/validations/validations.js'),
       '@axios': resolve(__dirname, 'src/libs/axios'),
+
     }
   },
   css: {

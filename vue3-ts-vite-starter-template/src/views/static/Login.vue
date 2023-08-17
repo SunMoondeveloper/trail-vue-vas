@@ -111,8 +111,6 @@ export default {
     submitForm() {
  
 axios.post('https://dev.vastoz.com/cms/user/login', {
-  //userName:"GreenG",
-  //password:"Vast0z1!"
   userName:this.username, 
   password:this.password,
   }, {

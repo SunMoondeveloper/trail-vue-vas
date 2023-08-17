@@ -4,7 +4,7 @@
 
       <!-- Brand logo-->
       <b-link class="brand-logo" to="/">
-        <img src="../assets/images/logo/logo.png" alt="" style="width: 200px">
+        <img src="../../assets/images/logo/logo.png" alt="" style="width: 200px">
       </b-link>
       <!-- /Brand logo-->
 
@@ -66,16 +66,12 @@
             </b-form-group>
 
             <b-form-group class="col-md-6" label="Birth Date*">
-              <!-- 
-              <b-form-datepicker id="birthday" class="form-control-merge pl-25" v-model="formData.birthDate" placeholder="DD/MM/YYYY"
-                                 :max="max"  :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }" locale="en" autocomplete="off"/>
-              -->
+              <VueDatePicker id="birthday" class="form-control-merge pl-25" :max="max" v-model="date" placeholder="DD/MM/YYYY" :format="format" locale="en" autocomplete="off" auto-apply keep-action-row required></VueDatePicker>
             </b-form-group>
 
             <b-form-group class="col-md-6" label="Country*">
-              <!--
+              <!--v-select class="form-control" id="country"  v-model="formData.countryId" label="countryName" :reduce="countryName => countryName.countryId"  :options="optionsCountry" @open="openSelect('country')"/-->
               <v-select class="form-control" id="country"  v-model="formData.countryId" label="countryName" :reduce="countryName => countryName.countryId"  :options="optionsCountry" @open="openSelect('country')"/>
-              -->
             </b-form-group>
 
             <div class="col-12 mt-1"><h4>Social Media</h4></div>
@@ -118,7 +114,7 @@
 
             <b-form-group class="col-md-12">
               <b-form-checkbox id="register-privacy-policy" v-model="formData.status" name="checkbox-1">By signing up, you agree with our Privacy Policy
-                <b-link :to="{name:'privacy'}">Privacy Policy</b-link> and <b-link :to="{name:'terms'}">Terms & Conditions</b-link> </b-form-checkbox>
+                <!--b-link :to="{name:'privacy'}">Privacy Policy</!--b-link> and <b-link-- :to="{name:'terms'}">Terms & Conditions</b-link--> </b-form-checkbox>
             </b-form-group>
 
 
@@ -137,25 +133,16 @@
               <b-form-input name="studioName" v-model="studioData.studioName" placeholder="Enter" type="text"/>
             </b-form-group>
             <b-form-group label="Category" class="mb-1 col-lg-6">
-              <!--
               <v-select v-model="studioData.category" label="listName" :loading="isLoadingL" class="form-control"
                         :options="optionsLang" @open="openSelect('category')"/>
-              -->
-
             </b-form-group>
             <b-form-group label="Language" class="mb-1 col-lg-6">
-              <!--
               <v-select v-model="studioData.languages" label="listName" :loading="isLoadingL" class="form-control"
                         :options="optionsLang" @open="openSelect('language')"/>
-              -->
-
             </b-form-group>
             <b-form-group label="Currency" class="mb-1 col-lg-6">
-              <!--
               <v-select v-model="studioData.currency" label="listName" :loading="isLoadingL" class="form-control"
                         :options="optionsLang" @open="openSelect('currency')"/>
-              -->
-
             </b-form-group>
             <b-form-group label="SEO Title" class="mb-1 col-12">
               <textarea rows="2" v-model="studioData.seoTitle" placeholder="" class="form-control"></textarea>
@@ -185,11 +172,8 @@
               <b-form-input name="lastName" v-model="studioData.lastName" placeholder="Enter" type="text"/>
             </b-form-group>
             <b-form-group label="Country*" class="mb-1 col-lg-6">
-              <!--
               <v-select id="country2" v-model="studioData.country" label="countryName" :loading="isLoadingL" class="form-control"
                         :options="optionsLang" @open="openSelect('country')"/>
-              -->
-
             </b-form-group>
             <b-form-group label="Email" class="mb-1 col-lg-6">
               <b-form-input v-model="studioData.email" placeholder="Enter" type="text"/>
@@ -211,12 +195,9 @@
               <b-form-input v-model="studioData.townDistrict" placeholder="Enter" type="text"/>
             </b-form-group>
             <b-form-group label="Select multiple Countries" class="mb-1 col-lg-6">
-              <!--
               <v-select v-model="studioData.countries" label="countryName" :loading="isLoadingL"
                         :options="optionsLang" @open="openSelect('country')" multiple
                         class="multiple-select form-control"/>
-              -->
-
             </b-form-group>
 
             <div class="col-12 mt-1">
@@ -248,10 +229,7 @@
                 <div class="file-box">
                   <input type="file" class="hidden" ref="uploadImgInput" @change="updateCurrImg"
                          accept="image/*">
-                         <!--
                   <img :src="profileBanner" alt="" class="empty-img mw-100" style="min-width:200px;width: 100%;height: 160px;object-fit: cover" @click="$refs.uploadImgInput.click()">
-
-                         -->
                   <label class="iconfont icon-upload"
                          @click="$refs.uploadImgInput.click()"></label>
                   <!--<span @click="removeImg('profileBanner')" class="remove-img"><feather-icon icon="DeleteIcon" size="14"/></span>-->
@@ -311,18 +289,12 @@
                 <b-overlay variant="white" :show="loadSignup"  opacity=".5" rounded="sm" class="d-inline-block">
                   <button type="button" class="btn btn-success" @click="saveStudio">Sign Up</button>
                 </b-overlay>
-
               </div>
             </div>
           </form>
-
-
-
-
-
           <p class="text-center mt-2" >
             <span>Already have an account?</span>
-            <b-link><span>&nbsp;Log in</span></b-link>
+            <!--b-link :to="{name:'login'}"><span>&nbsp;Log in</span></!--b-link-->
           </p>
 
         </b-col>
@@ -332,16 +304,23 @@
   </div>
 </template>
 
+
 <script>
 import {
   BRow, BCol, BLink, BButton, BForm, BFormCheckbox, BFormGroup, BFormInput, BInputGroup, BInputGroupAppend, BImg, BCardTitle, BCardText,
 } from 'bootstrap-vue-3'
+import axios from 'axios'
 
 
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
+import "vue-select/dist/vue-select.css";
 
 import { togglePasswordVisibility } from '@core/mixins/ui/forms'
 //import store from '@/store/index'
-//import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
+import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
+//import { useToast } from 'vue-toastification';
+import { useToast } from "vue-toastification";
 //import $ from 'jquery';
 export default {
   name: 'Register',
@@ -359,11 +338,13 @@ export default {
     BFormInput,
     BInputGroup,
     BInputGroupAppend,
+    VueDatePicker,
   },
   mixins: [togglePasswordVisibility],
   data() {
     return {
       max:new Date(),
+      date:new Date(),
       formData:{},
       optionsCountry: [],
       showNext:true,
@@ -387,18 +368,25 @@ export default {
     },
   },
   methods: {
+     format(date) {
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+
+  return `${day}/${month}/${year}`;
+},
     openSelect(item) {
       let url = null;
       if (item === 'language') {
-        url = this.GLOBAL.rootPath + '/select/getOptionBySelectId/3'
+        url = rootPath + '/select/getOptionBySelectId/3'
       }else if (item === 'currency') {
-        url = this.GLOBAL.rootPath + '/select/getOptionBySelectId/2'
+        url = rootPath + '/select/getOptionBySelectId/2'
       }else if (item === 'country') {
-        url = this.GLOBAL.rootPath + '/select/getCountryList'
+        url = rootPath+'/select/getCountryList'
       }else if (item === 'category') {
         url = this.GLOBAL.rootPath + '/select/getCategoryList'
       }
-      this.$http({
+      axios({
         method: 'post',
         url: url,
       }).then(res => {
@@ -409,177 +397,101 @@ export default {
       }).catch(error => {})
     },
     register1() {
+      const toast = useToast();
+      // Use it!
+     // toast("I'm a toast testing!");
+
       if(this.formData.firstName == undefined || this.formData.firstName == null || this.formData.firstName == ''){
-        this.$toast({
-          component: ToastificationContent,
-          props: {
-            title: 'First name can not be empty',
-            icon: 'AlertCircleIcon', variant: 'danger',
-          },
-        });
+        toast.error('First name can not be empty');
         $(".auth-register-form input[name='firstName']").addClass("border-red")
         return;
       }else{$(".auth-register-form input[name='firstName']").removeClass("border-red")}
 
       if(this.formData.lastName == undefined || this.formData.lastName == null || this.formData.lastName == ''){
-        this.$toast({
-          component: ToastificationContent,
-          props: {
-            title: 'Last name can not be empty',
-            icon: 'AlertCircleIcon', variant: 'danger',
-          },
-        });
+        toast.error('Last name can not be empty');
         $(".auth-register-form input[name='lastName']").addClass("border-red")
         return;
       }else{$(".auth-register-form input[name='lastName']").removeClass("border-red")}
 
       if(this.formData.nickName == undefined || this.formData.nickName == null || this.formData.nickName == ''){
-        this.$toast({
-          component: ToastificationContent,
-          props: {
-            title: 'Nick name can not be empty',
-            icon: 'AlertCircleIcon', variant: 'danger',
-          },
-        });
+        toast.error('Nick name can not be empty');
         $(".auth-register-form input[name='nickName']").addClass("border-red")
         return;
       }else{$(".auth-register-form input[name='nickName']").removeClass("border-red")}
 
       if(this.formData.userName == undefined || this.formData.userName == null || this.formData.userName == ''){
-        this.$toast({
-          component: ToastificationContent,
-          props: {
-            title: 'User name can not be empty',
-            icon: 'AlertCircleIcon', variant: 'danger',
-          },
-        });
+        toast.error('User name can not be empty');
         $(".auth-register-form input[name='userName']").addClass("border-red")
         return;
       }else{$(".auth-register-form input[name='userName']").removeClass("border-red")}
 
       if(this.formData.userName.length > 25 ){
-        this.$toast({
-          component: ToastificationContent,
-          props: {
-            title: 'Username should be 25 characters at most',
-            icon: 'AlertCircleIcon', variant: 'danger',
-          },
-        });
+        toast.error('Username should be 25 characters at most');
         $(".auth-register-form input[name='userName']").addClass("border-red")
         return;
       }else{$(".auth-register-form input[name='userName']").removeClass("border-red")}
 
       var regEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
       if(this.formData.email == undefined || this.formData.email == null || !regEmail.test(this.formData.email)){
-        this.$toast({component: ToastificationContent,
-          props: {
-            title: 'Please fill in the correct email format in the email',
-            icon: 'AlertCircleIcon', variant: 'danger',
-          },
-        });
+        toast.error('Please fill in the correct email format in the email');
         $(".auth-register-form input[name='email']").addClass("border-red")
         return;
       }else{$(".auth-register-form input[name='email']").removeClass("border-red")}
 
       if(this.formData.password == undefined || this.formData.password == null || this.formData.password == ''){
-        this.$toast({component: ToastificationContent,
-          props: {
-            title: 'Password can not be empty',
-            icon: 'AlertCircleIcon', variant: 'danger',
-          },
-        });
+        toast.error('Password can not be empty');
         $(".auth-register-form input[name='password']").addClass("border-red")
         return;
       }else{$(".auth-register-form input[name='password']").removeClass("border-red")}
 
       if(this.formData.password.length > 100 ){
-        this.$toast({component: ToastificationContent,
-          props: {
-            title: 'Password should be 100 characters at most',
-            icon: 'AlertCircleIcon', variant: 'danger',
-          },
-        });
+        toast.error('Password should be 100 characters at most');
         $(".auth-register-form input[name='password']").addClass("border-red")
         return;
       }else{$(".auth-register-form input[name='password']").removeClass("border-red")}
 
       var testPassword =/^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)(?=.*?[!#@*&.])[a-zA-Z\d!#@*&.]*$/;
       if(!testPassword.test(this.formData.password)){
-        this.$toast({component: ToastificationContent,
-          props: {
-            title: 'The password shall be at least 8 characters, including uppercase letters, lowercase letters, numbers and special characters.',
-            icon: 'AlertCircleIcon', variant: 'danger',
-          },
-        });
+        toast.error('The password shall be at least 8 characters, including uppercase letters, lowercase letters, numbers and special characters.');
+
+        
         $(".auth-register-form input[name='password']").addClass("border-red")
         return;
       }else{$(".auth-register-form input[name='password']").removeClass("border-red")}
 
       if(this.formData.password2 == undefined || this.formData.password2 == null || this.formData.password2 == ''){
-        this.$toast({component: ToastificationContent,
-          props: {
-            title: 'Confirm Password can not be empty',
-            icon: 'AlertCircleIcon', variant: 'danger',
-          },
-        });
+        toast.error('Confirm Password can not be empty');
         $(".auth-register-form input[name='password2']").addClass("border-red")
         return;
       }else{$(".auth-register-form input[name='password2']").removeClass("border-red")}
 
       if(this.formData.password != this.formData.password2  ){
-        this.$toast({component: ToastificationContent,
-          props: {
-            title: 'Confirmation password is not identical.',
-            icon: 'AlertCircleIcon', variant: 'danger',
-          },
-        });
+        toast.error('Confirmation password is not identical.');
         $(".auth-register-form input[name='password2']").addClass("border-red")
         return;
       }else{$(".auth-register-form input[name='password2']").removeClass("border-red")}
 
       if(this.formData.birthDate == undefined || this.formData.birthDate == null || this.formData.birthDate == '' ){
-        this.$toast({component: ToastificationContent,
-          props: {
-            title: 'Birthday Date can not be empty',
-            icon: 'AlertCircleIcon', variant: 'danger',
-          },
-        });
+        toast.error('Birthday Date can not be empty');
         $(".auth-register-form #birthday").addClass("border-red")
         return;
       }else if(getAge(this.formData.birthDate) <18){
-        this.$toast({component: ToastificationContent,
-          props: {
-            title: 'You must be at least 18 years old',
-            icon: 'AlertCircleIcon', variant: 'danger',
-          },
-        });
+        toast.error('You must be at least 18 years old');
         $(".auth-register-form #birthday").addClass("border-red")
         return;
       }else{$(".auth-register-form #birthday").removeClass("border-red")}
 
       if(this.formData.countryId == undefined || this.formData.countryId == null || this.formData.countryId == ''){
-        this.$toast({
-          component: ToastificationContent,
-          props: {
-            title: 'Country can not be empty',
-            icon: 'AlertCircleIcon', variant: 'danger',
-          },
-        });
+        toast.error('Country can not be empty');
         $(".auth-register-form #country").addClass("border-red")
         return;
       }else{$(".auth-register-form #country").removeClass("border-red")}
 
       if(this.formData.status == undefined || this.formData.status == null || this.formData.status == ''){
-        this.$toast({
-          component: ToastificationContent,
-          props: {
-            title: 'You must agree to our Privacy Policy and Terms & Conditions.',
-            icon: 'AlertCircleIcon', variant: 'danger',
-          },
-        });
+        toast.error('You must agree to our Privacy Policy and Terms & Conditions.');
         return;
       }
-
+      // Form validation completed
       this.loadNext=true
       const formData = new FormData();
       formData.append('formData', JSON.stringify(this.formData));
